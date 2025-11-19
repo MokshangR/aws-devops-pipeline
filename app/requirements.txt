@@ -1,0 +1,18 @@
+# Flask Framework
+Flask==3.0.3
+
+# Database
+Flask-MySQLdb==2.0.0
+mysqlclient==2.2.4
+
+# WSGI Production Server
+gunicorn==22.0.0
+
+# CORS Support
+Flask-Cors==4.0.0
+
+# Security
+Werkzeug==3.0.3
+
+# Environment Variables (optional, for local development)
+python-dotenv==1.0.1

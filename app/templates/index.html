@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message Board | Flask + MySQL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <h1>💬 Flask Message Board</h1>
+
+      <div class="message-box" id="messages">
+        {% if messages %} {% for msg, time in messages %}
+        <div class="message-item">
+          <p>{{ msg }}</p>
+          <span class="timestamp">{{ time.strftime("%Y-%m-%d %H:%M:%S") }}</span>
+        </div>
+        {% endfor %} {% else %}
+        <p class="no-data">No messages yet. Start by adding one below!</p>
+        {% endif %}
+      </div>
+
+      <form id="messageForm">
+        <input type="text" name="new_message" placeholder="Type your message..." required />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+    <script>
+      $(function () {
+        $("#messageForm").on("submit", function (e) {
+          e.preventDefault();
+          let messageInput = $("input[name='new_message']");
+          let text = messageInput.val().trim();
+          if (!text) return alert("Message cannot be empty!");
+
+          $.ajax({
+            url: "/api/message",
+            type: "POST",
+            data: { new_message: text },
+            success: function (res) {
+              if (res.message) {
+                $("#messages").prepend(
+                  `<div class="message-item">
+                                    <p>${res.message}</p>
+                                    <span class="timestamp">${res.created_at}</span>
+                                </div>`
+                );
+                messageInput.val("");
+              }
+            },
+            error: function (xhr) {
+              alert("Error: " + xhr.responseText);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

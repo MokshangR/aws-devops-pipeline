@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error | Flask Message Board</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="app-container">
+      <h1>⚠️ Error</h1>
+      <div class="message-box">
+        <p class="error-message">{{ error_message }}</p>
+      </div>
+      <a href="/" class="btn-link">
+        <button>Go Back Home</button>
+      </a>
+    </div>
+
+    <style>
+      .error-message {
+        color: #ff6b6b;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 20px;
+      }
+      .btn-link {
+        text-decoration: none;
+        display: block;
+        margin-top: 20px;
+      }
+    </style>
+  </body>
+</html>
