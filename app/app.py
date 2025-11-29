@@ -17,7 +17,7 @@ from flask_cors import CORS
 
 from config import get_config, Config
 
-# Get container hostname for load balancing visibility
+# Container hostname for load balancing visibility
 HOSTNAME = socket.gethostname()
 
 # Initialize Flask app
