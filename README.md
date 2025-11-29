@@ -19,18 +19,16 @@ A message board app where users can post messages. Built to learn AWS container 
 
 ## Architecture
 
-```
-GitHub → ECR → ECS Fargate → ALB
-                  ↓
-            RDS MySQL
-```
+![Architecture Diagram](docs/architecture.png)
 
-Components:
-- **ECR**: Stores Docker images
-- **ECS Fargate**: Runs containers (serverless)
-- **ALB**: Distributes traffic, health checks
+**Components:**
+- **GitHub Actions**: CI/CD pipeline (build, test, deploy)
+- **ECR**: Container registry for Docker images
+- **ECS Fargate**: Serverless container orchestration
+- **Application Load Balancer**: Traffic distribution and health checks
 - **RDS MySQL**: Database (messages_db)
-- **Secrets Manager**: Database credentials
+- **Secrets Manager**: Secure credential storage
+- **CloudWatch**: Centralized logging
 
 ## Local Development
 
@@ -52,6 +50,7 @@ curl http://localhost:5000/health
 See [docs/CONSOLE-SETUP.md](docs/CONSOLE-SETUP.md) for complete setup guide.
 
 Quick overview:
+
 1. Create ECR repository, push image
 2. Set up Secrets Manager for RDS credentials
 3. Create ECS cluster and task definition
@@ -77,11 +76,11 @@ aws-devops-pipeline/
 
 ## Endpoints
 
-| Endpoint | Purpose |
-|----------|---------|
-| `/` | Message board interface |
-| `/health` | Liveness probe (container health) |
-| `/ready` | Readiness probe (checks DB connection) |
+| Endpoint  | Purpose                                |
+| --------- | -------------------------------------- |
+| `/`       | Message board interface                |
+| `/health` | Liveness probe (container health)      |
+| `/ready`  | Readiness probe (checks DB connection) |
 
 ## Docker Optimization
 
@@ -91,6 +90,7 @@ Used multi-stage build to reduce image size:
 **After**: 222 MB (runtime only)
 
 How:
+
 - Stage 1: Install gcc and compile Python packages
 - Stage 2: Copy compiled packages, discard build tools
 - Bonus: Non-root user, health check instruction
@@ -121,8 +121,7 @@ MYSQL_DB=messages_db
 - [x] Docker containerization
 - [x] Multi-stage build optimization
 - [x] AWS ECS deployment
-- [ ] GitHub Actions CI/CD (coming next)
-- [ ] Terraform for infrastructure automation
+- [x] GitHub Actions CI/CD
 
 ## Monitoring
 
@@ -130,9 +129,9 @@ MYSQL_DB=messages_db
 # View logs
 aws logs tail /ecs/flask-message-board --follow --region ap-south-1
 
-# Check service
+# Check service status
 aws ecs describe-services \
-  --cluster flask-cluster \
+  --cluster flask-cluster2 \
   --services flask-message-board-service \
   --region ap-south-1
 ```
