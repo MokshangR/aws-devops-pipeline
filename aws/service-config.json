@@ -1,0 +1,36 @@
+{
+  "serviceName": "flask-message-board-service",
+  "cluster": "flask-cluster",
+  "taskDefinition": "flask-message-board",
+  "desiredCount": 1,
+  "launchType": "FARGATE",
+  "platformVersion": "LATEST",
+  "deploymentConfiguration": {
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 100,
+    "deploymentCircuitBreaker": {
+      "enable": true,
+      "rollback": true
+    }
+  },
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": [
+        "subnet-xxxxx1",
+        "subnet-xxxxx2"
+      ],
+      "securityGroups": [
+        "sg-xxxxx"
+      ],
+      "assignPublicIp": "ENABLED"
+    }
+  },
+  "loadBalancers": [
+    {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:ap-south-1:ACCOUNT_ID:targetgroup/flask-tg/XXXXX",
+      "containerName": "flask-app",
+      "containerPort": 5000
+    }
+  ],
+  "healthCheckGracePeriodSeconds": 60
+}

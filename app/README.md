@@ -31,14 +31,21 @@ pip install -r requirements.txt
 
 2. Configure environment variables:
 ```bash
-cp .env.example .env
-# Edit .env with your MySQL credentials
+# Create .env file with your MySQL credentials
+cat > .env <<EOF
+MYSQL_HOST=localhost
+MYSQL_USER=your_user
+MYSQL_PASSWORD=your_password
+MYSQL_DB=messages_db
+MYSQL_PORT=3306
+FLASK_ENV=development
+EOF
 ```
 
 3. Create the database:
 ```sql
-CREATE DATABASE flask_app;
-USE flask_app;
+CREATE DATABASE messages_db;
+USE messages_db;
 SOURCE message.sql;
 ```
 
@@ -97,7 +104,7 @@ docker run -d -p 5000:5000 \
   -e MYSQL_HOST=your-db-host \
   -e MYSQL_USER=user \
   -e MYSQL_PASSWORD=pass \
-  -e MYSQL_DB=flask_app \
+  -e MYSQL_DB=messages_db \
   flask-message-board
 ```
 
