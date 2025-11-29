@@ -6,6 +6,7 @@ import os
 import sys
 import logging
 import time
+import socket
 from datetime import datetime
 from typing import Tuple
 
@@ -14,6 +15,9 @@ from flask_mysqldb import MySQL
 from flask_cors import CORS
 
 from config import get_config, Config
+
+# Get container hostname for load balancing visibility
+HOSTNAME = socket.gethostname()
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -178,7 +182,7 @@ def home() -> str:
         cur.close()
 
         logger.info(f"Retrieved {len(messages)} messages from database")
-        return render_template('index.html', messages=messages)
+        return render_template('index.html', messages=messages, hostname=HOSTNAME)
 
     except Exception as e:
         logger.error(f"Error rendering home page: {e}", exc_info=True)
