@@ -1,6 +1,7 @@
 """
 Flask Message Board Application
 Production-ready application with proper logging, error handling, and health checks.
+Displays container hostname for load balancing visibility.
 """
 import os
 import sys
