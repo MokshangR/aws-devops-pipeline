@@ -10,7 +10,7 @@ env:
   AWS_REGION: ap-south-1
   ECR_REPOSITORY: flask-message-board
   ECS_CLUSTER: flask-cluster2
-  ECS_SERVICE: flask-message-board-service
+  ECS_SERVICE: flask-message-board-service-bx5weftc
   ECS_TASK_DEFINITION: flask-message-board
 
 jobs:
