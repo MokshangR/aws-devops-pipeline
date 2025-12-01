@@ -1,3 +1,5 @@
+[![CI](https://github.com/MokshangR/aws-devops-pipeline/actions/workflows/deploy.yml/badge.svg)](https://github.com/MokshangR/aws-devops-pipeline/actions)
+
 # Flask Message Board - AWS ECS Deployment
 
 A simple Flask application deployed to AWS ECS Fargate with Docker containerization and load balancing.
@@ -22,6 +24,7 @@ A message board app where users can post messages. Built to learn AWS container 
 ![Architecture Diagram](docs/architecture.png)
 
 **Components:**
+
 - **GitHub Actions**: CI/CD pipeline (build, test, deploy)
 - **ECR**: Container registry for Docker images
 - **ECS Fargate**: Serverless container orchestration
@@ -46,8 +49,6 @@ curl http://localhost:5000/health
 ```
 
 ## AWS Deployment
-
-See [docs/CONSOLE-SETUP.md](docs/CONSOLE-SETUP.md) for complete setup guide.
 
 Quick overview:
 
